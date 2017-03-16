@@ -67,13 +67,6 @@ make -j4
 make install
 ldconfig
 
-mkdir /code
-mkdir /data
-
-cd /tmp
-git clone https://www.github.com/vsoch/boneage
-mv boneage /code
-
 wget https://stanford.box.com/shared/static/t8hvcgy4m5kh5m76pt9kg9s71kjmik6c.meta -O /code/boneage/data/bone-age-checkpoint.ckpt-19999.meta
 wget https://stanford.box.com/shared/static/5936ydxx4qjk9rjkm1aun5fa9g5h27tt.ckpt-19999 -O /code/boneage/data/bone-age-checkpoint.ckpt-19999
 
