@@ -46,35 +46,35 @@ The entry to the container is done simply by using it as an executable:
 
 
 ### Run Prediction Demo
-To run the bone-age demo non interactively to get a prediction, you can run it without any arguments:
+To run the bone-age demo non interactively to get a prediction, you can run it without any arguments. Note that since this application is optimized to return a web response (json) you will only see a json object returned without the `--debug` argument:
 
       docker run vanessa/boneage
 
-	*** Starting Bone Age Prediction ****
-	No image selected, will use provided example...
-	Building model, please wait.
-	Predicted Age : 14 Months
-	Weighted Prediction : 11.832177 Months
+	{'gender': 'M', 'image': '/code/example_images/1.png', 'scores': [4.3481795e-32, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.95402247, 4.6613271e-30, 0.0, 0.0, 0.0, 3.5964787e-28, 0.045977563, 0.0, 0.0, 7.72608e-32, 3.5294469e-28, 3.2218784e-31, 8.7065415e-31, 0.0, 0.0, 1.4140952e-27, 2.0360324e-31, 1.3973739e-18, 0.0, 0.0, 9.1047968e-32, 0.0, 0.0, 0.0, 0.0, 5.5391993e-31, 0.0, 0.0, 0.0, 1.3619909e-16, 0.0, 0.0, 3.7027614e-31, 1.6943371e-30, 8.6800407e-32, 0.0, 0.0, 1.6423222e-28, 0.0, 5.1337822e-30, 2.6105505e-31, 4.9806177e-30, 4.3782129e-15, 4.614967e-32, 3.4625493e-27, 3.3474241e-32, 3.2968069e-27, 1.2063197e-29, 3.3373545e-30, 1.4215187e-27, 3.7455669e-28, 3.4475776e-11, 3.9599255e-23, 7.9019825e-23, 9.7098277e-27, 7.4687077e-28, 3.3236082e-30, 2.9441527e-25, 1.0912699e-25, 1.0655707e-22, 8.3881067e-27, 9.9488148e-28, 7.2947065e-31, 1.0451508e-28, 3.4619964e-30, 2.3976481e-26, 1.8529252e-26, 4.1468809e-13, 1.124584e-31, 3.3920541e-32, 1.0070911e-30, 2.3539665e-19, 1.2927373e-28, 0.0, 0.0, 6.4560408e-24, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0023609e-22, 0.0, 0.0, 0.0, 0.0, 0.0, 2.2730129e-32, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.8752429e-23, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.6301819e-32, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 7.1331077e-26, 0.0, 8.9587665e-29, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.98046e-27, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.7935414e-31, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.170995e-22, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.1674999e-31, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.0261926e-24, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.2983278e-12, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0756849e-12, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 'predicted_age': 8, 'predicted_weight': 8.2758656171904867}
 
-
-You can also run with `--debug` to get full debugging output.
+You can also run with `--debug` to get full "pretty print" output.
 
 
       docker run vanessa/boneage --debug
 
 	Environment message level found to be DEBUG
 
+	DEBUG:bone-age:
 	*** Starting Bone Age Prediction ****
-	No image selected, will use provided example...
+	DEBUG:bone-age:No image selected, will use provided example...
 	DEBUG:bone-age:is_male: True
-	DEBUG:bone-age:image: /code/example_images/5.png
+	DEBUG:bone-age:image: /code/example_images/0.png
 	DEBUG:bone-age:height: 256
 	DEBUG:bone-age:width: 256
 	DEBUG:PIL.PngImagePlugin:STREAM IHDR 16 13
 	DEBUG:PIL.PngImagePlugin:STREAM IDAT 41 65536
-	Building model, please wait.
-	Predicted Age : 8 Months
-	Weighted Prediction : 8.610813 Months
+	DEBUG:bone-age:Building model, please wait.
+
+        ...
+ 
+
+	DEBUG:bone-age:Predicted Age : 8 Months
+	DEBUG:bone-age:Weighted Prediction : 8.164139 Months
 
 
 ### Run Prediction With Your Own Image

@@ -5,6 +5,7 @@ Utility functions for bone age prediction demo
 '''
 
 import os
+import re
 from logman import bot
 
 from numpy import (
@@ -14,7 +15,13 @@ from numpy import (
 
 from PIL import Image
 import simplejson
+import tempfile
 import sys
+
+try:
+    from urllib import urlretrieve
+except:
+    from urllib.request import urlretrieve
 
 
 def get_image(image_path,warped_height=256,warped_width=256):
@@ -24,6 +31,12 @@ def get_image(image_path,warped_height=256,warped_width=256):
     :param warped_width: the width of the image, in pixels
     :param warped_height: the height of the image, in pixels
     '''
+    # If it's a url, download first.
+    delete_image = False
+    if re.search('http://|https',image_path):
+        image_path = download_image(image_path)
+        delete_image = True
+
     image = os.path.abspath(image_path)
 
     # Make sure it exists
@@ -31,9 +44,25 @@ def get_image(image_path,warped_height=256,warped_width=256):
         bot.logger.error("Error, cannot find %s, exiting!",image)
         sys.exit(1)
 
-    return import_image(img_path=image, 
+    data = import_image(img_path=image, 
                         warped_height=warped_height, 
                         warped_width=warped_width)
+
+    if delete_image is True:
+        os.remove(image_path)
+    return data
+
+
+def download_image(image_path):
+    '''download image will download image to a temporary location
+    '''
+    tmpfile = tempfile.mkstemp(prefix='tmp', dir='/tmp')[-1]
+    os.remove(tmpfile)
+    ext = os.path.splitext(image_path)[-1]
+    download_file = "%s%s" %(tmpfile,ext)
+    download_file,response = urlretrieve(image_path,download_file)
+    return download_file
+
 
 def import_image(img_path, warped_height=256, warped_width=256):
     '''import image will return the ind-th image specified by 

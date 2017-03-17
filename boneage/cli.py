@@ -66,7 +66,7 @@ def main():
     from logman import bot
     from predict_image import Model
     from utils import get_image, write_json
-    print("\n*** Starting Bone Age Prediction ****")
+    bot.logger.debug("\n*** Starting Bone Age Prediction ****")
 
     # Get the gender
     is_male = True
@@ -76,7 +76,7 @@ def main():
     # If the user has not provided an image, use an example
     image = args.image
     if image == None:
-        print("No image selected, will use provided example...")
+        bot.logger.debug("No image selected, will use provided example...")
         from utils import select_example_image
         image = select_example_image(start=0,end=9)
         is_male = True # all examples male
@@ -93,17 +93,20 @@ def main():
                       warped_height=args.height,
                       warped_width=args.width)
 
-    print("Building model, please wait.")
+    bot.logger.debug("Building model, please wait.")
     model = Model()
     result = model.get_result(image=image,
                               image_path=image_path,
                               is_male=is_male)
 
-    scores =  model.get_scores(image, is_male=is_male)
-    result['scores'] = list(scores)
+    result['scores'] = list(model.get_scores(image,is_male=is_male))
 
-    print('Predicted Age : %d Months' %result['predicted_age'])
-    print('Weighted Prediction : %f Months' %result['predicted_weight'])
+    # Print the json to stdout
+    print(result)
+
+    bot.logger.debug('Predicted Age : %d Months' %result['predicted_age'])
+    bot.logger.debug('Weighted Prediction : %f Months' %result['predicted_weight'])
+
 
     if args.output != None:
         output = write_json(json_object=result,
