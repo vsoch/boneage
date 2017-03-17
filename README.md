@@ -14,8 +14,8 @@ You should first [install Docker](https://docs.docker.com/engine/installation/).
 ### I want to build it!
 If you want to look at or make changes to the code, it's recommended to clone the repo and build the container locally:
 
-    git clone http://www.github.com/vsoch/bone-age
-    cd bone-age
+    git clone http://www.github.com/vsoch/boneage
+    cd boneage
     docker build -t vanessa/boneage .
 
 
