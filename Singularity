@@ -8,7 +8,7 @@ From: vanessa/boneage
 %labels
 
 SINGULARITY_RUNSCRIPT_ARG_STR image,gender
-SINGULARITY_RUNSCRIPT_ARG_INT width,height
+SINGULARITY_RUNSCRIPT_ARG_INT demo,width,height
 
 %post
 
