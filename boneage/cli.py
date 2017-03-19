@@ -16,6 +16,13 @@ def get_parser():
                         type=str,
                         default=None)
 
+    parser.add_argument("--demo",
+                        dest='demo',
+                        help="Specific demo image to run",
+                        type=int,
+                        default=None)
+
+
     parser.add_argument("--output", 
                         dest='output', 
                         help="Path to output file to write results.", 
@@ -73,12 +80,18 @@ def main():
     if args.gender == "F":
         is_male = False
 
-    # If the user has not provided an image, use an example
     image = args.image
     if image == None:
         bot.logger.debug("No image selected, will use provided example...")
-        from utils import select_example_image
-        image = select_example_image(start=0,end=9)
+        if args.demo is None:
+            from utils import select_example_image
+            image = select_example_image(start=0,end=9)
+        else:
+            if args.demo in range(0,10):
+                image = '/code/example_images/%s.png' %(args.demo)
+            else:
+                print({'error':'Please select a demo image between [0,9]'})
+                sys.exit(32)
         is_male = True # all examples male
 
     # Print parameters for user
